@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class QPCtest {
+class test {
 	private static final int OK = 0;
 	private static final int ERROR = -1;
 	private static final double dnull = java.lang.Double.NaN;

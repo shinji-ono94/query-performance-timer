@@ -8,7 +8,7 @@ import com.sun.jna.Structure;
 import com.sun.jna.Union;
 import com.sun.jna.Pointer;
 
-public class QueryPerformanceCounter2 {
+public class QPC2 {
 	public static Pointer timer = null;
 	public static LARGE_INTEGER qpf = new LARGE_INTEGER();
 	
@@ -48,11 +48,11 @@ public class QueryPerformanceCounter2 {
     	interval.QuadPart = -10 * 1000 * msec;	/* unit:100nsec, wait xx msec */
     	double sum = 0, max = Double.MIN_VALUE, min = Double.MAX_VALUE, ave = 0, sd = 0;
     	
-    	if (!QueryPerformanceCounter2.INSTANCE.QueryPerformanceCounter(qpc_before)) {
+    	if (!QPC2.INSTANCE.QueryPerformanceCounter(qpc_before)) {
             return -999;
         }
     	
-    	if (!QueryPerformanceCounter2.INSTANCE.SetWaitableTimer(
+    	if (!QPC2.INSTANCE.SetWaitableTimer(
     			timer,     // HANDLE hTimer,
     	        interval, // LARGE_INTEGER *pDueTime,
     	        0,         // LONG lPeriod,
@@ -62,10 +62,10 @@ public class QueryPerformanceCounter2 {
     	)) {
     		return -999;
     	}
-    	if (!QueryPerformanceCounter2.INSTANCE.WaitForSingleObject(timer, (msec+100)).equals("WAIT_OBJECT_0")) {
+    	if (!QPC2.INSTANCE.WaitForSingleObject(timer, (msec+100)).equals("WAIT_OBJECT_0")) {
     		return -999;
     	}
-    	if (!QueryPerformanceCounter2.INSTANCE.QueryPerformanceCounter(qpc_after)) {
+    	if (!QPC2.INSTANCE.QueryPerformanceCounter(qpc_after)) {
             return -999;
         }
     	
@@ -81,11 +81,11 @@ public class QueryPerformanceCounter2 {
     	double[] buf = new double[N]; 
     	
     	for (int i = 0; i < N; i++) {
-    		if (!QueryPerformanceCounter2.INSTANCE.QueryPerformanceCounter(qpc_before)) {
+    		if (!QPC2.INSTANCE.QueryPerformanceCounter(qpc_before)) {
                 return -999;
             }
         	
-        	if (!QueryPerformanceCounter2.INSTANCE.SetWaitableTimer(
+        	if (!QPC2.INSTANCE.SetWaitableTimer(
         			timer,     // HANDLE hTimer,
         	        interval, // LARGE_INTEGER *pDueTime,
         	        0,         // LONG lPeriod,
@@ -95,10 +95,10 @@ public class QueryPerformanceCounter2 {
         	)) {
         		return -999;
         	}
-        	if (!QueryPerformanceCounter2.INSTANCE.WaitForSingleObject(timer, (msec+100)).equals("WAIT_OBJECT_0")) {
+        	if (!QPC2.INSTANCE.WaitForSingleObject(timer, (msec+100)).equals("WAIT_OBJECT_0")) {
         		return -999;
         	}
-        	if (!QueryPerformanceCounter2.INSTANCE.QueryPerformanceCounter(qpc_after)) {
+        	if (!QPC2.INSTANCE.QueryPerformanceCounter(qpc_after)) {
                 return -999;
             }
         	long elapsed_qpc = qpc_after.QuadPart - qpc_before.QuadPart;
@@ -123,11 +123,11 @@ public class QueryPerformanceCounter2 {
     }
     
     public static void main(String[] args) {
-    	if (!QueryPerformanceCounter2.INSTANCE.QueryPerformanceCounter(qpf)) {
+    	if (!QPC2.INSTANCE.QueryPerformanceCounter(qpf)) {
             return;
         }
     	
-    	timer = QueryPerformanceCounter2.INSTANCE.CreateWaitableTimer(
+    	timer = QPC2.INSTANCE.CreateWaitableTimer(
     			null,
     			true,
     			null
@@ -140,7 +140,7 @@ public class QueryPerformanceCounter2 {
     	
     	precision_check(100, 1);
     	
-    	if (!QueryPerformanceCounter2.INSTANCE.CloseHandle(timer)) {
+    	if (!QPC2.INSTANCE.CloseHandle(timer)) {
             return;
         }
     }
