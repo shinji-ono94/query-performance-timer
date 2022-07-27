@@ -11,6 +11,15 @@ Javaで一定時間待ってほしい時は、一般的にThread.Sleepが使わ�
 <br />
 <br />
 # 実装
+環境は以下の通り。
+
+名前|バージョン
+---|---
+OS|Windows10
+JDK|java-1.8.0-openjdk-1.8.0.252-2
+JNA|5.5.0
+
+
 以下サイトを参考に作成中。
 
 - [Windows APIをJavaから呼び出す（JNA）](https://torutk.hatenablog.jp/entry/20121020/p1)
