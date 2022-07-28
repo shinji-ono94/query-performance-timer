@@ -22,13 +22,27 @@ class test {
     }
 
     @Test
-    @DisplayName("Test01 : MEAS_VOLT_SINGLE, sMethod is 'S'")
+    @DisplayName("Test01 : QPC1, main OK")
     void Test01() throws Exception {
 
         long start = System.nanoTime();
 
         String args[] = {};
-        com.example.qpc.QPC1.main(args);
+        QPC1.main(args);
+
+        long end = System.nanoTime();
+        System.out.println((end - start));
+
+    }
+
+    @Test
+    @DisplayName("Test02 : QPC2, main OK")
+    void Test02() throws Exception {
+
+        long start = System.nanoTime();
+
+        String args[] = {};
+        // QPC2.main(args);
 
         long end = System.nanoTime();
         System.out.println((end - start));

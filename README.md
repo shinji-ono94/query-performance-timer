@@ -3,7 +3,7 @@
 Javaで一定時間待ってほしい時は、一般的にThread.Sleepが使われている気がする。    
 しかし、Thread.Sleepの精度が悪すぎ([リンク](https://github.com/shinji-ono94/timer-bench))て、高精度なタイミング制御が要求されるシーンでは使い物にならない。
 <br />
-<br />  
+<br />
 ひょんなことから、高精度なタイマーを作りたい。 そこで、CPU の周波数単位でカウンタしてくれるQueryPerformanceCounterを使って、高精度なタイマー作ってみる。
 <br />
 <br />
