@@ -42,7 +42,7 @@ class test {
         long start = System.nanoTime();
 
         String args[] = {};
-        // QPC2.main(args);
+        com.example.qpc.QPC2.run_qpc2;
 
         long end = System.nanoTime();
         System.out.println((end - start));
