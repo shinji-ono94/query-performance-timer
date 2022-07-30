@@ -126,7 +126,7 @@ public class QPC2 {
 		return 0;
 	}
 
-	public static void main(String[] args) {
+	public static void run_qpc2() {
 		if (!QPC2.INSTANCE.QueryPerformanceCounter(qpf)) {
 			return;
 		}
