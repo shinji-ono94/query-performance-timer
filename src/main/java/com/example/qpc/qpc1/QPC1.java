@@ -80,7 +80,7 @@ public class QPC1 {
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void run_qpc1() {
 		long start = System.nanoTime();
 		wait(20); // 20ms待つ
 		long end = System.nanoTime();
