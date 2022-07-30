@@ -7,13 +7,10 @@ import com.sun.jna.Pointer;
 
 public class QPC1 {
 	public interface CLibrary extends Library {
-		boolean QueryPerformanceFrequency(LARGE_INTEGER frequency);
-
 		Pointer GetCurrentThread();
-
 		int SetThreadAffinityMask(Pointer hTread, int dwThreadAffinityMask);
-
 		boolean QueryPerformanceCounter(LARGE_INTEGER counter);
+		boolean QueryPerformanceFrequency(LARGE_INTEGER frequency);
 	}
 
 	// LARGE_INTEGER（unionのtypedef）のJava対応型定義
