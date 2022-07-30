@@ -1,4 +1,4 @@
-package com.example.qpc;
+package com.example.qpc2;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
