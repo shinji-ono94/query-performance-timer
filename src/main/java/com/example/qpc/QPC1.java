@@ -80,6 +80,73 @@ public class QPC1 {
 		}
 	}
 
+	public static void wait_noSleep(int msec) {
+		long nowTimeTik;
+		long toTimeTik;
+		long ticval;
+		LARGE_INTEGER timerFreq = new LARGE_INTEGER();
+		LARGE_INTEGER currentTime = new LARGE_INTEGER();
+		boolean bRet;
+		int oldmask;
+
+		oldmask = QPC1.INSTANCE.SetThreadAffinityMask(QPC1.INSTANCE.GetCurrentThread(), 1);
+		bRet = QPC1.INSTANCE.QueryPerformanceFrequency(timerFreq);
+		bRet &= QPC1.INSTANCE.QueryPerformanceCounter(currentTime);
+		QPC1.INSTANCE.SetThreadAffinityMask(QPC1.INSTANCE.GetCurrentThread(), oldmask);
+		if (!bRet) {
+			return;
+		}
+		ticval = (long) (((double) currentTime.QuadPart / (double) timerFreq.QuadPart) * 1000000.0); // us単位
+		nowTimeTik = ticval; // 1=1us
+
+		toTimeTik = msec * 1000;
+		toTimeTik += nowTimeTik;
+
+		while (nowTimeTik < toTimeTik) {
+			oldmask = QPC1.INSTANCE.SetThreadAffinityMask(QPC1.INSTANCE.GetCurrentThread(), 1);
+			bRet = QPC1.INSTANCE.QueryPerformanceCounter(currentTime);
+			QPC1.INSTANCE.SetThreadAffinityMask(QPC1.INSTANCE.GetCurrentThread(), oldmask);
+			if (bRet) {
+				ticval = (long) (((double) currentTime.QuadPart / (double) timerFreq.QuadPart) * 1000000.0); // us単位
+				nowTimeTik = ticval; // 1=1us
+			}
+		}
+	}
+
+	public static void wait_nanoTime(int msec) {
+		long nowTimeTik;
+		long toTimeTik;
+
+		nowTimeTik = System.nanoTime(); // 1=1ns
+
+		toTimeTik = msec * 1000000;
+		toTimeTik += nowTimeTik;
+
+		// 15ms超のWait
+		if (msec > 15) {
+			while (nowTimeTik < (toTimeTik - 15000)) {
+				try {
+					Thread.sleep(5);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				nowTimeTik = System.nanoTime(); // 1=1ns
+			}
+		}
+
+		// 15ms以下のWait
+		while (nowTimeTik < toTimeTik) {
+			try {
+				Thread.sleep(0);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			nowTimeTik = System.nanoTime(); // 1=1ns
+		}
+	}
+
 	public static void main(String[] args) {
 		long start = System.nanoTime();
 		wait(20); // 20ms待つ

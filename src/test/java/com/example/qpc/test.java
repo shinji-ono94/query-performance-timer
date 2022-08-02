@@ -22,17 +22,72 @@ class test {
     }
 
     @Test
-    @DisplayName("Test01 : MEAS_VOLT_SINGLE, sMethod is 'S'")
+    @DisplayName("Test01 : QPC1 wait test")
     void Test01() throws Exception {
 
         long start = System.nanoTime();
 
-        String args[] = {};
-        com.example.qpc.QPC1.main(args);
+        com.example.qpc.QPC1.wait(10);
 
         long end = System.nanoTime();
         System.out.println((end - start));
+    }
 
+    @Test
+    @DisplayName("Test02 : QPC1 wait_noSleep test")
+    void Test02() throws Exception {
+
+        long start = System.nanoTime();
+
+        com.example.qpc.QPC1.wait_noSleep(10);
+
+        long end = System.nanoTime();
+        System.out.println((end - start));
+    }
+
+    @Test
+    @DisplayName("Test03 : QPC1 wait_nanoTime test")
+    void Test03() throws Exception {
+
+        // 1ms
+        for (int i = 0; i < 1000; i++) {
+            long start = System.nanoTime();
+
+            com.example.qpc.QPC1.wait_nanoTime(1);
+
+            long end = System.nanoTime();
+            System.out.println((end - start));
+        }
+
+        // 10ms
+        for (int i = 0; i < 1000; i++) {
+            long start = System.nanoTime();
+
+            com.example.qpc.QPC1.wait_nanoTime(10);
+
+            long end = System.nanoTime();
+            System.out.println((end - start));
+        }
+
+        // 100ms
+        for (int i = 0; i < 1000; i++) {
+            long start = System.nanoTime();
+
+            com.example.qpc.QPC1.wait_nanoTime(100);
+
+            long end = System.nanoTime();
+            System.out.println((end - start));
+        }
+
+        // 1000ms
+        for (int i = 0; i < 1000; i++) {
+            long start = System.nanoTime();
+
+            com.example.qpc.QPC1.wait_nanoTime(1000);
+
+            long end = System.nanoTime();
+            System.out.println((end - start));
+        }
     }
 
     @AfterEach
